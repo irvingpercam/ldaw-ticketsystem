@@ -14,4 +14,5 @@
 Route::view('/', 'home')->name('home');
 Route::view('/about', 'about')->name('about');
 Route::view('/contact', 'contact')->name('contact');
-
+Route::view('/register', 'register')->name('registro');
+Route::post('/save_client', 'UserController@save_client');
