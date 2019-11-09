@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('base')
 @section('title', 'Registrar cuenta')
 @section('content')
 <!-- Register Form -->

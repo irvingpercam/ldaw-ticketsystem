@@ -28,7 +28,7 @@
                 <li><a class="white-text gen-font" href="#">Talleres</a></li>
                 <li><a class="white-text gen-font" href="#">Conferencias</a></li>
                 <li><a class="white-text gen-font" href="#">Contacto</a></li>
-                <li><a class="waves-effect waves-light btn white deep-orange-text" href="/register"><i class="material-icons left deep-orange-text">account_circle</i>Regístrate</a></li>
+                <li><a class="waves-effect waves-light btn white deep-orange-text" href="/register"><i class="material-icons left deep-orange-text">account_circle</i>Iniciar Sesión</a></li>
             </ul>
             </div>
         </nav>
@@ -81,22 +81,3 @@
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script>
-    (function($){
-        $(function(){
-            $('.sidenav').sidenav();
-        }); // end of document ready
-    })(jQuery); // end of jQuery name space
-    </script>
-    <script>
-        $('.carousel.carousel-slider').carousel({
-            fullWidth: true,
-            indicators: false,
-            duration: 500
-        });
-        setInterval(function(){
-            $('.carousel').carousel('next');
-        }, 10000);
-    </script>
-</body>
-</html>
