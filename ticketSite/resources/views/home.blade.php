@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Home')
+@section('title', 'Evnt')
 @section('content')
       <!--   Slider   -->
       <div class="row">
@@ -24,10 +24,10 @@
         </div>
         <!--   End Slider   -->
         <!-- Start Event Section -->
-        <div class="container left">
+        <div class="container">
             <div class="row">
                 <div class="col s12">
-                    <h2 class="deep-orange-text">Eventos</h2>
+                    <h2 class="deep-orange-text center-align" style="text-shadow: 1px 1px 1px #000">Proximos eventos</h2>
                 </div>
             </div>
         </div>

@@ -47,7 +47,7 @@
         <div class="container">
         <div class="row">
             <div class="col l6 s12">
-            <h5 class="white-text">TicketSite</h5>
+            <h5 class="white-text">Evnt</h5>
             <p class="grey-text text-lighten-4">Compañia dedicada a la venta de boletos. Sitio en construcción.</p>
             </div>
             <div class="col l3 s12">
@@ -72,7 +72,7 @@
         </div>
         <div class="footer-copyright">
         <div class="container">
-        Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+        Creado por <a class="orange-text text-lighten-3">JIR</a>
         </div>
         </div>
     </footer>
