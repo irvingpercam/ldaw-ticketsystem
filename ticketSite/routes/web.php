@@ -12,6 +12,7 @@
 */
 
 Route::view('/', 'home')->name('home');
+Route::view('/test', 'test')->name('test');
 Route::view('/about', 'about')->name('about');
 Route::view('/contact', 'contact')->name('contact');
 Route::view('/register', 'register')->name('registro');

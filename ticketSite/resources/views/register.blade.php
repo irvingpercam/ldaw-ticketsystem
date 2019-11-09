@@ -9,7 +9,7 @@
             <input type="text" name="nombre_cliente" value="" placeholder="Nombre completo" autocomplete="off">
             <br>
             <label for="estado">Estado:</label>
-            <input type="number" name="id_estado" value="1" placeholder="Estado" autocomplete="off">
+            <input type="number" name="id_estado" value="0" placeholder="Institución" autocomplete="off">
             <br>
             <label for="institucion">Institución:</label>
             <input type="number" name="id_institucion" value="0" placeholder="Institución" autocomplete="off">
