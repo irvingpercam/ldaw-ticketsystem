@@ -16,5 +16,7 @@ Route::view('/test', 'test')->name('test');
 Route::view('/about', 'about')->name('about');
 Route::view('/contact', 'contact')->name('contact');
 Route::view('/register', 'register')->name('registro');
+Route::view('/register_admin', 'register_admin')->name('registro admin');
 Route::view('/login', 'login')->name('login');
 Route::post('/save_client', 'UserController@save_client');
+Route::post('/save_admin', 'UserController@save_admin');

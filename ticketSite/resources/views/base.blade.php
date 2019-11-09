@@ -28,7 +28,7 @@
                 <li><a class="white-text gen-font" href="#">Talleres</a></li>
                 <li><a class="white-text gen-font" href="#">Conferencias</a></li>
                 <li><a class="white-text gen-font" href="#">Contacto</a></li>
-                <li><a class="waves-effect waves-light btn white deep-orange-text" href="/register"><i class="material-icons left deep-orange-text">account_circle</i>Iniciar Sesión</a></li>
+                <li><a class="waves-effect waves-light btn white deep-orange-text" href="/login"><i class="material-icons left deep-orange-text">account_circle</i>Iniciar Sesión</a></li>
             </ul>
             </div>
         </nav>

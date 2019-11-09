@@ -1,9 +1,9 @@
 @extends('base')
-@section('title', 'Home')
+@section('title', 'Registrar administrador')
 @section('content')
-<!-- Login Form -->
+<!-- Register Form -->
 <div class="container">
-    <h3>Iniciar Sesión</h3>
+    <h3>Registrar Administrador</h3>
 <form action="{{URL::to('/save_admin')}}" method="POST">
         <label for="email">Correo Electrónico:</label>
         <input type="email" name="correo" value="" placeholder="Correo electrónico" autocomplete="off">
@@ -23,5 +23,5 @@
     <br>
     <br>
 </div>
-<!-- End Login Form -->
+<!-- End Register Form -->
 @endsection
