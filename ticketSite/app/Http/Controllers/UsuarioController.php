@@ -14,7 +14,11 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        return response()->json(['status'=>'ok','data'=>Usuario::all()], 200);
+        // get all the usuario▒
+        $usuario▒ = Usuario▒::all();
+
+        // load the view and pass the usuario▒
+        return $usuario▒;
     }
 
     /**

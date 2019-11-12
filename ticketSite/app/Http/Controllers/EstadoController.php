@@ -14,7 +14,11 @@ class EstadoController extends Controller
      */
     public function index()
     {
-        //
+        // get all the estado
+        $estado = Estado::all();
+
+        // load the view and pass the estado
+        return $estado;
     }
 
     /**

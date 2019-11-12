@@ -18,8 +18,7 @@ class InstitucionController extends Controller
         $institucion = Institucion::all();
 
         // load the view and pass the institucion
-        return View::make('test')
-            ->with('institucion', $institucion);
+        return $institucion;
     }
 
     /**
@@ -30,12 +29,13 @@ class InstitucionController extends Controller
      */
     public function store(Request $request)
     {
-        //Instanciamos la clase Institucion
-        $institucion = new Institucion;
-        //Declaramos el nombre con el nombre enviado en el request
-        $institucion->nombre_institucion = $request->nombre_institucion;
-        //Guardamos el cambio en nuestro modelo
-        $institucion->save();
+        //comprobamos que esten todos los datos del formulario
+        if (!$request->nombre_institucion)
+        {
+            return response()->json(['errors'=>array(['code'=>422,'message'=>'Favor de llenar los campos requeridos'])],422);
+        }
+        //Creamos el nuevo objeto con base en el request
+        $institucion = Institucion::create($request->all());
     }
 
     /**
@@ -46,8 +46,15 @@ class InstitucionController extends Controller
      */
     public function show($id)
     {
+        $institucion = Institucion::find($id);
+        if (!$institucion)
+		{
+			// Se devuelve un array errors con los errores encontrados y cabecera HTTP 404.
+			// En code podríamos indicar un código de error personalizado de nuestra aplicación si lo deseamos.
+			return response()->json(['errors'=>array(['code'=>404,'message'=>'No se encuentra este elemento'])],404);
+		}
         //Solicitamos la institucion con el id solicitado por GET.
-        return Institucion::where('id_institucion', $id)->get();
+        return response()->json(['status'=>'ok','data'=>$institucion],200);
     }
 
     /**
@@ -57,17 +64,25 @@ class InstitucionController extends Controller
      * @param  \App\Institucion  $institucion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $institucion = Institucion::where('id_institucion', $request->id)->get();
+        $institucion = Institucion::find($id);
 
-        $institucion->nombre_institucion = $request->nombre_institucion;
+        if (!$institucion)
+        {
+            return response()->json(['errors'=>array(['code'=>404,'message'=>'El elemento no existe.'])],404);
+        }
 
-        $institucion->save();
+        //llenado por el metodo patch
+        $flag = false;
 
-        return $institucion;
-        //Esta función actualizará la tarea que hayamos seleccionado
-       
+        if ($request->nombre_institucion)
+        {
+            $institucion->nombre_institucion = $request->nombre_institucion;
+            $flag = true;
+        }
+
+        if ($flag){ $institucion->save(); }
     }
 
     /**
@@ -76,8 +91,15 @@ class InstitucionController extends Controller
      * @param  \App\Institucion  $institucion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Institucion $institucion)
+    public function destroy($id)
     {
-        //
+        $institucion = Institucion::find($id);
+
+        if (!$institucion)
+        {
+            return response()->json(['errors'=>array(['code'=>404,'message'=>'El elemento no existe.'])],404);
+        }
+        
+        $institucion->delete();
     }
 }
