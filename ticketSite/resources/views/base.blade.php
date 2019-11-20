@@ -18,7 +18,7 @@
     <nav>
         <div class="nav-wrapper deep-orange darken-2">
         <div class="nav-wrapper">
-            <a href="index.php" class="brand-logo">
+            <a href="/" class="brand-logo">
                 <img class="dmh-logo" src="{{ asset('/img/ticket.png') }}" alt="Logo DMH" style="width:8vh;height:auto;">
             </a>
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons white-text">menu</i></a>
@@ -81,3 +81,29 @@
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+    // var dtot = new Date();
+    // var dd = String(dtot.getDate());
+    // var mm = dtot.getMonth();
+    // var yyyy = dtot.getFullYear();
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    today = yyyy + '-' + mm + '-' + dd;
+    $('.datepicker').datepicker({
+        firstDay: true, 
+        minDate: new Date(today),
+        format: 'yyyy-mm-dd',
+        i18n: {
+            months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+            monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Set", "Oct", "Nov", "Dic"],
+            weekdays: ["Domingo","Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+            weekdaysShort: ["Dom","Lun", "Mar", "Mie", "Jue", "Vie", "Sáb"],
+            weekdaysAbbrev: ["D","L", "M", "M", "J", "V", "S"],
+            cancel: 'Cancelar',
+            clear: 'Limpar',
+            done: 'Ok'
+        }
+    });
+    </script>

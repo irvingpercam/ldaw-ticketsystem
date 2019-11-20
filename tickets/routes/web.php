@@ -11,13 +11,12 @@
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 Route::view('/', 'home')->name('home');
-Route::view('/test', 'test')->name('test');
 Route::view('/about', 'about')->name('about');
+Route::get('/events', 'EventsController@index')->name('events');
 Route::view('/contact', 'contact')->name('contact');
-Route::view('/register', 'register')->name('registro');
-Route::view('/register_admin', 'register_admin')->name('registro admin');
-Route::view('/register_event', 'register_event')->name('registrar evento');
-Route::view('/login', 'login')->name('login');
-Route::post('/save_client', 'UserController@save_client');
-Route::post('/save_admin', 'UserController@save_admin');
+Route::post('contact', 'MessagesController@store');
