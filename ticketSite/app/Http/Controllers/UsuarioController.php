@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
@@ -14,11 +15,11 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        // get all the usuario▒
-        $usuario▒ = Usuario▒::all();
+        // get all the usuario
+        $usuario = Usuario::all();
 
-        // load the view and pass the usuario▒
-        return $usuario▒;
+        // load the view and pass the usuario
+        return $usuario;
     }
 
     /**
@@ -27,13 +28,20 @@ class UsuarioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    //REGISTRAR ADMIN
     public function store(Request $request)
     {
+        if (!$request->correo || !$request->contrasena)
+        {
+            return response()->json(['errors'=>array(['code'=>422,'message'=>'Favor de llenar los campos requeridos'])],422);
+        }
         //Instanciamos la clase Usuario
         $usuario = new Usuario;
+
         //Declaramos el nombre con el nombre enviado en el request
         $usuario->correo= $request->correo;
-        $usuario->contrasena= $request->contrasena;        
+        $usuario->contrasena= Hash::make($request->contrasena);
         //Guardamos el cambio en nuestro modelo
         $usuario->save();
     }

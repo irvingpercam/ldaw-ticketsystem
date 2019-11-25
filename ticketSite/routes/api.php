@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('clientes', 'ClienteController');
+Route::resource('administradores', 'AdminController');
 Route::resource('estados', 'EstadoController');
 Route::resource('eventos', 'EventoController');
 Route::resource('boletos', 'BoletoController');

@@ -13,5 +13,5 @@ class Boleto extends Model
     //definimos la llave primaria
     protected $primaryKey = 'codigo';
     //campos que son llenados a traves de un formulario
-    protected $fillable = ['costo, id_evento, id_usuario'];
+    protected $fillable = ['asistio, id_evento, id_usuario'];
 }

@@ -13,5 +13,5 @@ class Evento extends Model
     //definimos la llave primaria
     protected $primaryKey = 'id_evento';
     //campos que son llenados a traves de un formulario
-    protected $fillable = ['fecha_evento, capacidad, direccion, descripcion, siglas, nombre_evento'];
+    protected $fillable = ['fecha_evento, capacidad, direccion, descripcion, siglas, nombre_evento, costo'];
 }

@@ -14,7 +14,11 @@ class BoletoController extends Controller
      */
     public function index()
     {
-        //
+        // get all the boleto
+        $boleto = Boleto::all();
+
+        // load the view and pass the boleto
+        return $boleto;
     }
 
     /**
@@ -35,7 +39,7 @@ class BoletoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -67,9 +71,19 @@ class BoletoController extends Controller
      * @param  \App\Boleto  $boleto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Boleto $boleto)
+    //PASAR ASISTENCIA
+    public function update($id)
     {
-        //
+        $boleto = Boleto::find($id);
+
+        if (!$boleto)
+        {
+            return response()->json(['errors'=>array(['code'=>404,'message'=>'El elemento no existe.'])],404);
+        }
+
+        $boleto->asistio = 1;
+        $boleto->save();
+        return 'boleto modificado con exito';
     }
 
     /**
