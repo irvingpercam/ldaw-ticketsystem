@@ -16,7 +16,10 @@
 // });
 
 Route::view('/', 'home')->name('home');
-Route::view('/about', 'about')->name('about');
-Route::get('/events', 'EventsController@index')->name('events');
-Route::view('/contact', 'contact')->name('contact');
-Route::post('contact', 'MessagesController@store');
+Route::view('/quienes-somos', 'about')->name('about');
+Route::get('/eventos', 'EventoController@index')->name('events.index');
+Route::get('/eventos/crear', 'EventoController@create')->name('events.create');
+Route::post('/eventos', 'EventoController@store')->name('events.store');
+Route::get('/eventos/{event}', 'EventoController@show')->name('events.show');
+Route::view('/contacto', 'contact')->name('contact');
+Route::post('contact', 'MessageController@store')->name('messages.store');
