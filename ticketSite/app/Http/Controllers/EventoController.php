@@ -54,12 +54,6 @@ class EventoController extends Controller
         $evento->siglas = $request->siglas;
         $evento->costo = $request->costo;
         $evento->save();
-
-        for($i=0; $i<($evento->capacidad); $i++){
-            $boleto = new Boleto;
-            $boleto->id_evento = $evento->id_evento;
-            $boleto->save();
-        }
     }
 
     /**
@@ -107,10 +101,6 @@ class EventoController extends Controller
         {
             return response()->json(['errors'=>array(['code'=>404,'message'=>'El elemento no existe.'])],404);
         }
-        if (($request->capacidad) < ($evento->capacidad))
-        {
-            return response()->json(['errors'=>array(['code'=>404,'message'=>'No se puede reducir la capacidad del evento'])],404);
-        }
 
         //llenado por el metodo patch
         $flag = false;
@@ -127,16 +117,6 @@ class EventoController extends Controller
         }
         if ($request->capacidad)
         {
-            $nuevos = ($request->capacidad) - ($evento->capacidad);
-
-            if (($request->capacidad) > ($evento->capacidad)){
-                for($i=0; $i<$nuevos; $i++){
-                    $boleto = new Boleto;
-                    $boleto->id_evento = $evento->id_evento;
-                    $boleto->save();
-                }
-            }
-
             $evento->capacidad = $request->capacidad;
             $flag = true;
         }
