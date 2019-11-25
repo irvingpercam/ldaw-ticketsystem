@@ -37,9 +37,12 @@ class BoletoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function buy($id_usuario, $id_evento)
     {
-        
+        $boleto = new Boleto;
+        $boleto->id_usuario = $id_usuario;
+        $boleto->id_evento = $id_evento;
+        $boleto->save();
     }
 
     /**

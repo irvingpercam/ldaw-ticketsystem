@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 |
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
+| is assigned the "api" middleware group. Enjoy building your API!.
 |
 */
 
@@ -24,3 +24,4 @@ Route::resource('eventos', 'EventoController');
 Route::resource('boletos', 'BoletoController');
 Route::resource('instituciones', 'InstitucionController');
 Route::resource('usuarios', 'UsuarioController');
+Route::post('boletos/{id_usuario}/{id_evento}', 'BoletoController@buy')->name('boletos.buy');
