@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Evento;
 use App\Boleto;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EventoController extends Controller
 {
@@ -159,5 +161,13 @@ class EventoController extends Controller
         
         $evento->delete();
         return 'evento eliminado';
+    }
+
+    public function showCurrent()
+    {
+        $hoy = Carbon::now();
+        $hoy->format("Y-M-D");
+        $actuales = Evento::where('fecha_evento', '>=', $hoy)->get();
+        return $actuales;
     }
 }

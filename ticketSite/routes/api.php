@@ -25,3 +25,5 @@ Route::resource('boletos', 'BoletoController');
 Route::resource('instituciones', 'InstitucionController');
 Route::resource('usuarios', 'UsuarioController');
 Route::post('boletos/{id_usuario}/{id_evento}', 'BoletoController@buy')->name('boletos.buy');
+Route::get('evento', 'EventoController@showCurrent')->name('eventos.current');
+
