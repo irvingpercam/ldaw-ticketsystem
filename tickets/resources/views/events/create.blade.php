@@ -2,6 +2,7 @@
 @section('title', 'Registrar Evento')
 @section('content')
     <h1>Registrar Evento</h1>
+    
     <form method="POST" action=" {{ route('events.store') }} " >
         @csrf
         <label for="nombre_evento">Nombre del Evento<br>
