@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Evento;
 use Illuminate\Http\Request;
+use App\Http\Requests\SaveEventRequest;
 
 class EventoController extends Controller
 {
@@ -23,19 +24,26 @@ class EventoController extends Controller
         ]);
     }
     public function create(){
-        return view('events.create');
-    }
-    public function store(){
-        $fields = request()->validate([
-            'nombre_evento' => 'required',
-            'fecha_evento' => 'required',
-            'direccion' => 'required',
-            'descripcion' => 'required|min:3',
-            'capacidad' => 'required',
-            'siglas' => 'required',
+        return view('events.create', [
+            'event' => new Evento
         ]);
-        Evento::create($fields);
-        return redirect()->route('events.index');
+    }
+    public function store(SaveEventRequest $request){
+        Evento::create($request->validated());
+        return redirect()->route('events.index')->with('status', '¡El proyecto fue creado con éxito!');
+    }
+    public function edit(Evento $event){
+        return view('events.edit', [
+            'event' => $event
+        ]);
+    }
+    public function update(Evento $event, SaveEventRequest $request){
+        $event->update($request->validated());
+        return redirect()->route('events.show', $event)->with('status', '¡El proyecto fue actualizado con éxito!');
+    }
+    public function destroy(Evento $event){
+        $event->delete();
+        return redirect()->route('events.index')->with('status', '¡El proyecto fue eliminado con éxito!');
     }
     // public function store(){
     //     Evento::create([

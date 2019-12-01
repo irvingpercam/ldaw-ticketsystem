@@ -12,6 +12,6 @@ class MessageController extends Controller
             'content' => 'required|min:3'
         ]);
         Mail::to('a01703171@itesm.mx')->queue(new MessageReceived($message));
-        return 'Mensaje enviado';
+        return back()->with('status', 'Recibimos tu mensaje, te responderemos en menos de 24 horas.');
     }
 }
