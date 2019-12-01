@@ -31,3 +31,6 @@ Route::post('contact', 'MessageController@store')->name('messages.store');
 // Route::post('/eventos', 'EventoController@store')->name('events.store');
 // Route::get('/eventos/{event}', 'EventoController@show')->name('events.show');
 // Route::delete('/eventos/{event}', 'EventoController@destroy')->name('events.destroy');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
