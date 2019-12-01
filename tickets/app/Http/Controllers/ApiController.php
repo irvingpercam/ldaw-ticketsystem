@@ -36,6 +36,7 @@ class ApiController extends Controller
         $rol_usuario->id_usuario = $usuario->id_usuario;
         //Guardamos el cambio en nuestro modelo
         $rol_usuario->save();
+        return response()->json(['status'=>'ok','data'=>$usuario],200);
     }
 
     //Use case: crear cliente
@@ -67,6 +68,7 @@ class ApiController extends Controller
         $rol_usuario->id_usuario = $usuario->id_usuario;
         //Guardamos el cambio en nuestro modelo
         $rol_usuario->save();
+        return response()->json(['status'=>'ok','data'=>[$cliente,$usuario]],200);
     }
 
     //Use case: crear evento
@@ -86,6 +88,7 @@ class ApiController extends Controller
         $evento->siglas = $request->siglas;
         $evento->costo = $request->costo;
         $evento->save();
+        return response()->json(['status'=>'ok','data'=>$evento],200);
     }
 
     //Use case: modificar evento
@@ -134,7 +137,7 @@ class ApiController extends Controller
 
         if ($flag){ 
             $evento->save(); 
-            return 'elemento modificado con exito';
+            return response()->json(['status'=>'ok','data'=>$evento],200);
         }
     }
 
@@ -148,8 +151,9 @@ class ApiController extends Controller
             return response()->json(['errors'=>array(['code'=>404,'message'=>'El elemento no existe.'])],404);
         }
         
+        $tmp = $evento;
         $evento->delete();
-        return 'evento eliminado';
+        return response()->json(['status'=>'ok','data'=>$tmp],200);
     }
 
     //Use case: consultar eventos actuales
@@ -170,18 +174,31 @@ class ApiController extends Controller
         // load the view and pass the evento
         return $evento;
     }
+    
+    //Use case: consultar un evento
+    public function showOneEvent($id)
+    {
+        // get one event
+        $evento = Evento::find($id);
+
+        // load the view and pass the evento
+        return $evento;
+    }
 
     //Use case: comprar boleto
     public function buyTicket($id_usuario, $id_evento)
     {
+        $usuario = Usuario::find($id_usuario);
+        $evento = Evento::find($id_evento);
         $boleto = new Boleto;
         $boleto->id_usuario = $id_usuario;
         $boleto->id_evento = $id_evento;
         $boleto->save();
+        return response()->json(['status'=>'ok','data'=>[$usuario, $evento, $boleto]],200);
     }
 
     //Use case: registrar asistente
-    public function registerAsistant($id)
+    public function registerAssistant($id)
     {
         $boleto = Boleto::find($id);
 
@@ -190,9 +207,13 @@ class ApiController extends Controller
             return response()->json(['errors'=>array(['code'=>404,'message'=>'El elemento no existe.'])],404);
         }
 
+        if ($boleto->asistio == 1) {
+            return response()->json(['status'=>'ok','data'=>["este boleto ya fue utilizado"]],400);
+        }
+
         $boleto->asistio = 1;
         $boleto->save();
-        return 'boleto modificado con exito';
+        return response()->json(['status'=>'ok','data'=>[$boleto, " asistencia registrada"]],200);
     }
 
     //Use case: iniciar sesión
