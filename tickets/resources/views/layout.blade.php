@@ -8,6 +8,8 @@
     <title>@yield('title', 'Tickets')</title>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <script src="/js/app.js" defer></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+</a>
 </head>
 <body>
     <div id="app" class="d-flex flex-column h-screen justify-content-between">

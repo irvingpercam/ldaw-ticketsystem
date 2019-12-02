@@ -49,4 +49,7 @@
         </div>
     </div>
 </div>
+<a href="https://api.whatsapp.com/send?phone=524422660863&text=Hola, estoy contactandolo desde la pagina de Tickets." class="float" target="_blank">
+<i class="fa fa-whatsapp my-float"></i>
+</a>
 @endsection
