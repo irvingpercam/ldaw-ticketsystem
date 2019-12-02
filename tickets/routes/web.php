@@ -20,7 +20,8 @@ Route::view('/quienes-somos', 'about')->name('about');
 Route::resource('eventos', 'EventoController')
 ->names('events')
 ->parameters(['eventos' => 'event']);
-
+Route::get('/eventos/{event}/asistencia', 'EventoController@asistance')->name('events.asistance');
+Route::patch('/eventos/{event}', 'EventoController@takeAsistance')->name('events.takeAsistance');
 Route::view('/contacto', 'contact')->name('contact');
 Route::post('contact', 'MessageController@store')->name('messages.store');
 

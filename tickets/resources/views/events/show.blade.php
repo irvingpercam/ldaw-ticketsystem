@@ -6,6 +6,7 @@
     <form action="{{ route('events.destroy', $event) }}" method="post">
         @csrf @method('DELETE')
         <button>Eliminar</button>
+    <a href="{{ route('events.asistance', $event) }}">Pasar lista</a>
     </form>
         <p>{{ $event->descripcion }}</p>
         <p>{{ Carbon\Carbon::parse($event->fecha_evento)->format('Y-m-d') }}</p>

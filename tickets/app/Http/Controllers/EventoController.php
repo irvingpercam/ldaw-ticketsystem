@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Evento;
 use Illuminate\Http\Request;
 use App\Http\Requests\SaveEventRequest;
+use App\Http\Requests\SaveAsistanceRequest;
 
 class EventoController extends Controller
 {
@@ -44,6 +45,24 @@ class EventoController extends Controller
     public function destroy(Evento $event){
         $event->delete();
         return redirect()->route('events.index')->with('status', '¡El proyecto fue eliminado con éxito!');
+    }
+    public function asistance(Evento $event){
+        return view('events.asistance', [
+            'event' => $event
+        ]);
+    }
+    public function takeAsistance(Evento $event, $codigo, SaveAsistanceRequest $request){
+        $boleto = Boleto::find($codigo);
+        if (!$boleto)
+        {
+            return redirect()->route('events.show', $event)->with('status', '¡El boleto no existe!');
+        }
+        if ($boleto->asistio == 1) {
+            return redirect()->route('events.show', $event)->with('status', '¡Este boleto ya fue registrado previamente!');
+        }
+        $boleto->asistio = 1;
+        $boleto->save($request->validated());
+        return redirect()->route('events.show', $event)->with('status', '¡Asistencia con éxito!');
     }
     // public function store(){
     //     Evento::create([
