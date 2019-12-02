@@ -1,6 +1,9 @@
 @extends('layout')
 @section('title', 'Evento | ' . $event->nombre_evento)
 @section('content')
+@php
+    $boletos = App\Boleto::where('id_usuario', auth()->user()->id)->where('id_evento', $event->id_evento)->count();
+@endphp
 <div class="container">
     <div class="row">
         <div class="col-12 col-sm-10 col-lg-8 mx-auto">
@@ -22,8 +25,42 @@
                 </div>
                 <div class="form-group">
                     <a class="btn btn-success btn-lg btn-block text-white display-1" href="{{ route('events.asistance', $event) }}">Pasar lista</a>
-                </div><br>
+                </div>
                 @endif
+                @if(Auth::user()->roles->pluck('nombre_rol')->contains('cliente'))
+                <p>Cuentas con {{$boletos}} boleto(s) para este evento</p>
+                <div class="form-group">
+                    <a class="btn btn-warning btn-lg btn-block display-1" 
+                    data-toggle="modal" 
+                    data-target="#buyModal"
+                    >Comprar boleto</a>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="buyModal" tabindex="-1" role="dialog" aria-labelledby="buyModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="buyModalLabel">Boleto para: {{ $event->nombre_evento }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                            <p class="text-center">¿Seguro que deseas adquirir un boleto?</p>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No, no quiero</button>
+                            <form action="{{ route('events.buyTicket', $event) }}" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-primary">Sí, toma mi dinero</button>
+                            </form>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                @endif
+                </div><br>
                 @endauth
                 <div class="form-group">
                     <h3 class="text-secondary">Descripción:</h6><br>

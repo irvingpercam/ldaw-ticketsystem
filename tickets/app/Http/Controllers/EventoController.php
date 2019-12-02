@@ -6,6 +6,7 @@ use App\Boleto;
 use Illuminate\Http\Request;
 use App\Http\Requests\SaveEventRequest;
 use App\Http\Requests\SaveAsistanceRequest;
+use Illuminate\Support\Facades\Auth;
 
 class EventoController extends Controller
 {
@@ -76,4 +77,13 @@ class EventoController extends Controller
     //     ]);
     //     return redirect()->route('events.index');
     // }
+
+    public function buyTicket(Evento $event){
+        $boleto = new Boleto;
+        $user = Auth::user();
+        $boleto->id_usuario = $user->id;
+        $boleto->id_evento = $event->id_evento;
+        $boleto->save();
+        return redirect()->route('events.show', $event)->with('status', '¡Gracias por su adquisicion!');
+    }
 }

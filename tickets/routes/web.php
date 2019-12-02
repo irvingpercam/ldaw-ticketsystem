@@ -25,6 +25,8 @@ Route::view('/contacto', 'contact')->name('contact');
 
 Route::post('contact', 'MessageController@store')->name('messages.store');
 
+Route::post('eventos/buy/{event}', 'EventoController@buyTicket')->name('events.buyTicket');
+
 Route::group(['middleware' => ['admin']], function () {
 
     Route::get('/eventos/{event}/asistencia', 'EventoController@asistance')->name('events.asistance');
