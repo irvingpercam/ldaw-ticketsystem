@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Cliente;
+use App\RolUsuario;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -28,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = 'eventos';
 
     /**
      * Create a new controller instance.
@@ -49,8 +51,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:50', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'name' => ['required', 'string', 'max:50'],
         ]);
     }
 
@@ -62,9 +65,30 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $usuario = new User;
+        $cliente = new Cliente;
+
+        //Declaramos el nombre con el nombre enviado en el request
+        $usuario->email= $data['email'];
+        $usuario->password= Hash::make($data['password']);
+        //Guardamos el cambio en nuestro modelo
+        $usuario->save();
+
+        
+        $cliente->nombre_cliente = $data['name'];
+        $cliente->fecha_nacimiento = $data['birth'];
+        $cliente->id_estado = $data['estado'];
+        $cliente->id_institucion = $data['institucion'];
+        $cliente->id_usuario = $usuario->id;
+        $cliente->save();
+
+        $rol_usuario = new RolUsuario;
+        //Declaramos el nombre con el nombre enviado en el request
+        $rol_usuario->rol_id= 2;
+        $rol_usuario->user_id = $usuario->id;
+        //Guardamos el cambio en nuestro modelo
+        $rol_usuario->save();
+        return $usuario;
+       // return redirect()->route('login', $usuario)->with('status', '¡Usuario registrado exitosamente!');
     }
 }

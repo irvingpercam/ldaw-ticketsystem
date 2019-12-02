@@ -4,9 +4,11 @@
     <div class="container">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="display-4 mb-0">{{ __('Events') }}</h1>
-        {{-- @auth --}}
+        @auth
+        @if(Auth::user()->roles->pluck('nombre_rol')->contains('admin'))
         <a class="btn btn-primary btn-lg text-white display-1" href="{{ route('events.create') }}">Registrar Evento</a>
-        {{-- @endauth --}}
+        @endif
+        @endauth
       </div><hr>
         <div class="row">
                 @php
