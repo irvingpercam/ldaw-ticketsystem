@@ -13,5 +13,5 @@ class RolUsuario extends Model
     //definimos la llave primaria
     protected $primaryKey = 'id';
     //campos que son llenados a traves de un formulario
-    protected $fillable = ['rol_id, user_id'];
+    protected $fillable = ['rol_id', 'user_id'];
 }

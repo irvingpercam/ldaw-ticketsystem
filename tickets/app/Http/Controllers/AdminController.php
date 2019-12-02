@@ -57,7 +57,9 @@ class AdminController extends Controller
         return redirect()->route('admins.show', $admin)->with('status', '¡El administrador fue actualizado con éxito!');
     }
     public function destroy(User $admin){
-        $admin->delete();
+        // $admin->delete();
+        RolUsuario::where('user_id', $admin['id'])->delete();
+        User::find($admin['id'])->delete();
         return redirect()->route('admins.index')->with('status', '¡El administrador fue eliminado con éxito!');
     }
 }
