@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Boleto;
 use App\Evento;
-use App\Usuario;
+use App\User;
 use App\Cliente;
 use App\RolUsuario;
 use Carbon\Carbon;
@@ -18,22 +18,22 @@ class ApiController extends Controller
     //Use case: crear administrador
     public function createAdmin(Request $request)
     {
-        if (!$request->correo || !$request->contrasena)
+        if (!$request->email || !$request->password)
         {
             return response()->json(['errors'=>array(['code'=>422,'message'=>'Favor de llenar los campos requeridos'])],422);
         }
-        //Instanciamos la clase Usuario
-        $usuario = new Usuario;
+        //Instanciamos la clase usuario
+        $usuario = new User;
         //Declaramos el nombre con el nombre enviado en el request
-        $usuario->correo= $request->correo;
-        $usuario->contrasena= Hash::make($request->contrasena);
+        $usuario->email= $request->email;
+        $usuario->password= Hash::make($request->password);
         //Guardamos el cambio en nuestro modelo
         $usuario->save();
 
         $rol_usuario = new RolUsuario;
         //Declaramos el nombre con el nombre enviado en el request
-        $rol_usuario->id_rol= 1;
-        $rol_usuario->id_usuario = $usuario->id_usuario;
+        $rol_usuario->rol_id= 1;
+        $rol_usuario->user_id = $usuario->id;
         //Guardamos el cambio en nuestro modelo
         $rol_usuario->save();
         return response()->json(['status'=>'ok','data'=>$usuario],200);
@@ -42,20 +42,20 @@ class ApiController extends Controller
     //Use case: crear cliente
     public function createClient(Request $request)
     {
-        if (!$request->correo || !$request->contrasena || !$request->nombre_cliente)
+        if (!$request->email || !$request->password || !$request->nombre_cliente)
         {
             return response()->json(['errors'=>array(['code'=>422,'message'=>'Favor de llenar los campos requeridos'])],422);
         }
-        //Instanciamos la clase Usuario
-        $usuario = new Usuario;
+        //Instanciamos la clase usuario
+        $usuario = new User;
         //Declaramos el nombre con el nombre enviado en el request
-        $usuario->correo= $request->correo;
-        $usuario->contrasena= Hash::make($request->contrasena);
+        $usuario->email= $request->email;
+        $usuario->password= Hash::make($request->password);
         //Guardamos el cambio en nuestro modelo
         $usuario->save();
 
         $cliente = new Cliente;
-        $cliente->id_usuario = $usuario->id_usuario;
+        $cliente->id_usuario = $usuario->id;
         $cliente->nombre_cliente = $request->nombre_cliente;
         $cliente->fecha_nacimiento = $request->fecha_nacimiento;
         $cliente->id_estado = $request->id_estado;
@@ -64,8 +64,8 @@ class ApiController extends Controller
 
         $rol_usuario = new RolUsuario;
         //Declaramos el nombre con el nombre enviado en el request
-        $rol_usuario->id_rol= 2;
-        $rol_usuario->id_usuario = $usuario->id_usuario;
+        $rol_usuario->rol_id= 2;
+        $rol_usuario->user_id = $usuario->id;
         //Guardamos el cambio en nuestro modelo
         $rol_usuario->save();
         return response()->json(['status'=>'ok','data'=>[$cliente,$usuario]],200);
@@ -188,7 +188,7 @@ class ApiController extends Controller
     //Use case: comprar boleto
     public function buyTicket($id_usuario, $id_evento)
     {
-        $usuario = Usuario::find($id_usuario);
+        $usuario = User::find($id_usuario);
         $evento = Evento::find($id_evento);
         $boleto = new Boleto;
         $boleto->id_usuario = $id_usuario;
@@ -198,7 +198,7 @@ class ApiController extends Controller
     }
 
     //Use case: registrar asistente
-    public function registerAssistant($id)
+    /* public function registerAssistant($id)
     {
         $boleto = Boleto::find($id);
 
@@ -214,8 +214,23 @@ class ApiController extends Controller
         $boleto->asistio = 1;
         $boleto->save();
         return response()->json(['status'=>'ok','data'=>[$boleto, " asistencia registrada"]],200);
-    }
+    } */
 
-    //Use case: iniciar sesión
-    //Use case: cerrar sesión
+    public function registerAssistant(Request $request)
+    {
+        $boleto = Boleto::find($request->codigo);
+
+        if (!$boleto)
+        {
+            return response()->json(['errors'=>array(['code'=>404,'message'=>'El elemento no existe.'])],404);
+        }
+
+        if ($boleto->asistio == 1) {
+            return response()->json(['status'=>'ok','data'=>["este boleto ya fue utilizado"]],400);
+        }
+
+        $boleto->asistio = 1;
+        $boleto->save();
+        return response()->json(['status'=>'ok','data'=>[$boleto, " asistencia registrada"]],200);
+    }
 }
