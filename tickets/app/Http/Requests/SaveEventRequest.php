@@ -30,6 +30,8 @@ class SaveEventRequest extends FormRequest
             'descripcion' => 'required|min:3',
             'capacidad' => 'required',
             'siglas' => 'required',
+            'costo' => 'required',
+            'img' => 'required'
         ];
     }
 }

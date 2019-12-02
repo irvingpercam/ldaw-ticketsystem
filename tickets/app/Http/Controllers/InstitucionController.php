@@ -15,7 +15,7 @@ class InstitucionController extends Controller
     public function index()
     {
         return view('institutions.index', [
-            'institutions' => Institucion::all()
+            'institutions' => Institucion::orderBy('nombre_institucion', 'ASC')->paginate()
         ]);
     }
     public function create(){

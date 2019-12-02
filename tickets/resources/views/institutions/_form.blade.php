@@ -1,5 +1,4 @@
 @csrf
-<h1 class="display-6">Registrar Institucion</h1>
 <hr>
     <div class="form-group">
         <label for="nombre_institucion">Nombre de la Institucion</label>

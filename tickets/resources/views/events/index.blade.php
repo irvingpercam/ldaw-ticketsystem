@@ -2,18 +2,24 @@
 @section('title', 'Events')
 @section('content')
     <div class="container">
-        <h1 class="display-4">{{ __('Events') }}</h1>
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="display-4 mb-0">{{ __('Events') }}</h1>
         {{-- @auth --}}
         <a class="btn btn-primary btn-lg text-white display-1" href="{{ route('events.create') }}">Registrar Evento</a>
         {{-- @endauth --}}
-        <br><br>
+      </div><hr>
         <div class="row">
+                @php
+                    $i=0;
+                @endphp
                 @forelse ($events as $eventsItem)
                 <div class="col">
                         <div class="card mb-3" style="max-width: 540px;">
                             <div class="row no-gutters">
                               <div class="col-md-4">
-                                <img src="https://i.pinimg.com/originals/d1/89/2d/d1892de1edd10f40e9edf9cb54d37fd8.jpg" class="card-img" alt="...">
+                              <div class="wrapper">
+                                <img src="@if($eventsItem->img){{$eventsItem->img}}@else https://i.pinimg.com/originals/d1/89/2d/d1892de1edd10f40e9edf9cb54d37fd8.jpg @endif" class="card-img" alt="{{$eventsItem->nombre_proyecto}}">
+                              </div>
                               </div>
                               <div class="col-md-8">
                                 <div class="card-body">
@@ -25,7 +31,13 @@
                               </div>
                             </div>
                           </div>
-                      </div>
+                </div>
+        @php
+            $i++;
+        @endphp
+        @if($i % 2 == 0 && $i != count($events))
+        </div><div class="row">
+        @endif
                 @empty
                 <p>No hay eventos para mostrar</p>
                 @endforelse
