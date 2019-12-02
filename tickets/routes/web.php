@@ -37,3 +37,7 @@ Route::group(['middleware' => ['admin']], function () {
     ->names('institutions')
     ->parameters(['instituciones' => 'institution']);
 });
+
+Route::resource('admins', 'AdminController')
+->names('admins')
+->parameters(['administradores' => 'admin']);
