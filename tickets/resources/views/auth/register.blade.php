@@ -1,12 +1,15 @@
 @extends('layout')
 
 @section('content')
+@php
+    $estados = App\Estado::all();
+    $instituciones = App\Institucion::all();
+@endphp
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Register') }}</div>
-
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
@@ -43,8 +46,14 @@
                             <label for="estado" class="col-md-4 col-form-label text-md-right">{{ __('Estado') }}</label>
 
                             <div class="col-md-6">
-                                <input id="estado" type="text" class="form-control @error('estado') is-invalid @enderror" name="estado" value="{{ old('estado') }}">
-
+{{--                                 <input id="estado" type="text" class="form-control @error('estado') is-invalid @enderror" name="estado" value="{{ old('estado') }}">
+ --}}                                <select class="form-control @error('estado') is-invalid @enderror" value="{{ old('estado') }}" name="estado" id="estado">
+                                    @forelse ($estados as $estadosItem)
+                                        <option value="{{$estadosItem->id_estado}}">{{$estadosItem->nombre_estado}}</option>
+                                    @empty
+                                        <p class="alert alert-danger aria-alert">No hay estados disponibles</p>
+                                    @endforelse
+                                </select>
                                 @error('estado')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -57,8 +66,14 @@
                             <label for="institucion" class="col-md-4 col-form-label text-md-right">{{ __('Institucion') }}</label>
 
                             <div class="col-md-6">
-                                <input id="institucion" type="text" class="form-control @error('institucion') is-invalid @enderror" name="institucion" value="{{ old('institucion') }}">
-
+{{--                                 <input id="institucion" type="text" class="form-control @error('institucion') is-invalid @enderror" name="institucion" value="{{ old('institucion') }}">
+ --}}                           <select id="institucion" class="form-control @error('institucion') is-invalid @enderror" name="institucion" value="{{ old('institucion') }}">
+                                    @forelse ($instituciones as $institucionItem)
+                                        <option value="{{$institucionItem->id_institucion}}">{{$institucionItem->nombre_institucion}}</option>
+                                    @empty
+                                        <p class="alert alert-danger aria-alert">No hay instituciones disponibles</p>
+                                    @endforelse
+                                </select>
                                 @error('institucion')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -103,9 +118,9 @@
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
+                        <div class="form-group row mb-0 d-flex mx-auto">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block text-white mx-auto">
                                     {{ __('Register') }}
                                 </button>
                             </div>

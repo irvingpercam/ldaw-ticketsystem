@@ -9,8 +9,6 @@
         <a class="btn btn-primary btn-lg text-white mx-auto" href="{{route('events.index')}}">Eventos</a>
     </div>
 </div>
-{{auth()->user()}}
-{{Auth::user()->roles->pluck('nombre_rol')}}
 {{-- <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="display-6 mb-0">{{ __('Bienvenido a ') }}{{config('app.name')}}</h1>
