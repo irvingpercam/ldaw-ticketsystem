@@ -87,6 +87,7 @@ class ApiController extends Controller
         $evento->descripcion = $request->descripcion;
         $evento->siglas = $request->siglas;
         $evento->costo = $request->costo;
+        $evento->img = $request->img;
         $evento->save();
         return response()->json(['status'=>'ok','data'=>$evento],200);
     }
@@ -132,6 +133,11 @@ class ApiController extends Controller
         if ($request->siglas)
         {
             $evento->siglas = $request->siglas;
+            $flag = true;
+        }
+        if ($request->img)
+        {
+            $evento->img = $request->img;
             $flag = true;
         }
 
