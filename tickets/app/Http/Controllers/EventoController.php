@@ -58,11 +58,11 @@ class EventoController extends Controller
         {
             return redirect()->route('events.show', $event)->with('status', '¡El boleto no existe!');
         }
-        if ($boleto->asistio == 1) {
+        if ($boleto[0]->asistio == 1) {
             return redirect()->route('events.show', $event)->with('status', '¡Este boleto ya fue registrado previamente!');
         }
-        $boleto->asistio = 1;
-        $boleto->save();
+        $boleto[0]->asistio = 1;
+        $boleto[0]->save();
         return redirect()->route('events.show', $event)->with('status', '¡Asistencia con éxito!');
     }
     // public function store(){

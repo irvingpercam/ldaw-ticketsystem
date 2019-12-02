@@ -13,5 +13,5 @@ class Cliente extends Model
     //definimos la llave primaria
     protected $primaryKey = 'id_usuario';
     //campos que son llenados a traves de un formulario
-    protected $fillable = ['fecha_nacimiento, nombre_cliente, id_estado, id_institucion'];
+    protected $fillable = ['fecha_nacimiento', 'nombre_cliente', 'id_estado', 'id_institucion'];
 }
