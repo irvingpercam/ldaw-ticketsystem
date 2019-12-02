@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Evento;
+use App\Boleto;
 use Illuminate\Http\Request;
 use App\Http\Requests\SaveEventRequest;
 use App\Http\Requests\SaveAsistanceRequest;
@@ -51,8 +52,8 @@ class EventoController extends Controller
             'event' => $event
         ]);
     }
-    public function takeAsistance(Evento $event, $codigo, SaveAsistanceRequest $request){
-        $boleto = Boleto::find($codigo);
+    public function takeAsistance(Evento $event, SaveAsistanceRequest $request){
+        $boleto = Boleto::find($request->validated());
         if (!$boleto)
         {
             return redirect()->route('events.show', $event)->with('status', '¡El boleto no existe!');
@@ -61,7 +62,7 @@ class EventoController extends Controller
             return redirect()->route('events.show', $event)->with('status', '¡Este boleto ya fue registrado previamente!');
         }
         $boleto->asistio = 1;
-        $boleto->save($request->validated());
+        $boleto->save();
         return redirect()->route('events.show', $event)->with('status', '¡Asistencia con éxito!');
     }
     // public function store(){
