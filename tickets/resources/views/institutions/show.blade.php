@@ -7,12 +7,12 @@
             <div class="bg-white shadow rounded py-3 px-4">
                 <h1 class="display-6 mb-0">{{ $institution->nombre_institucion }}</h1><hr>
                 <div class="form-group">
-                    <a class="btn btn-primary btn-lg btn-block text-white display-1" href="{{ route('institutions.edit', $institution)}}">Editar</a>
+                    <a class="btn btn-success btn-lg btn-block text-white display-1" href="{{ route('institutions.edit', $institution)}}">Editar</a>
                 </div>
                 <div class="form-group">
                     <form action="{{ route('institutions.destroy', $institution) }}" method="post">
                         @csrf @method('DELETE')
-                        <button class="btn btn-primary btn-lg btn-block text-white display-1">Eliminar</button>
+                        <button class="btn btn-danger btn-lg btn-block text-white display-1">Eliminar</button>
                     </form>
                 </div>
                 <div class="form-group">

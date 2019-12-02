@@ -12,16 +12,16 @@
                 @auth
                 @if(Auth::user()->roles->pluck('nombre_rol')->contains('admin'))
                 <div class="form-group">
-                    <a class="btn btn-primary btn-lg btn-block text-white display-1" href="{{ route('events.edit', $event)}}">Editar</a>
+                    <a class="btn btn-info btn-lg btn-block text-white display-1" href="{{ route('events.edit', $event)}}">Editar</a>
                 </div>
                 <div class="form-group">
                     <form action="{{ route('events.destroy', $event) }}" method="post">
                         @csrf @method('DELETE')
-                        <button class="btn btn-primary btn-lg btn-block text-white display-1">Eliminar</button>
+                        <button class="btn btn-danger btn-lg btn-block text-white display-1">Eliminar</button>
                     </form>
                 </div>
                 <div class="form-group">
-                    <a class="btn btn-primary btn-lg btn-block text-white display-1" href="{{ route('events.asistance', $event) }}">Pasar lista</a>
+                    <a class="btn btn-success btn-lg btn-block text-white display-1" href="{{ route('events.asistance', $event) }}">Pasar lista</a>
                 </div><br>
                 @endif
                 @endauth
