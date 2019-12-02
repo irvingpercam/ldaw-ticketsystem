@@ -1,9 +1,6 @@
 @extends('layout')
 @section('title', 'Evento | ' . $event->nombre_evento)
 @section('content')
-@php
-    $boletos = App\Boleto::where('id_usuario', auth()->user()->id)->where('id_evento', $event->id_evento)->count();
-@endphp
 <div class="container">
     <div class="row">
         <div class="col-12 col-sm-10 col-lg-8 mx-auto">
@@ -28,6 +25,10 @@
                 </div>
                 @endif
                 @if(Auth::user()->roles->pluck('nombre_rol')->contains('cliente'))
+                @php
+                $boletos = App\Boleto::where('id_usuario', auth()->user()->id)->where('id_evento', $event->id_evento)->count();
+                @endphp
+
                 <p>Cuentas con {{$boletos}} boleto(s) para este evento</p>
                 <div class="form-group">
                     <a class="btn btn-warning btn-lg btn-block display-1" 
