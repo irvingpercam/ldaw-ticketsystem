@@ -22,18 +22,32 @@
                         <a class="nav-link {{ setActive('events.*') }}" href="{{route('events.index')}}">
                             @lang('Events')
                         </a>
-                </li>    
+                </li>   
+                @auth
+                @if(Auth::user()->roles->pluck('nombre_rol')->contains('admin'))
                 <li class=" nav-item">
                         <a class="nav-link {{ setActive('institutions.*') }}" href="{{route('institutions.index')}}">
                             Instituciones
                         </a>
                 </li>
+                @endif
+                @endauth
                 <li class=" nav-item">
                         <a class="nav-link {{ setActive('contact') }}" href="{{route('contact')}}">
                             @lang('Contact')
                         </a>
                 </li>
+                @guest
+                    <li><a class="nav-link" href="{{ route('login')}}">Iniciar sesion</a></li>
+                    <li><a class="nav-link" href="{{ route('register')}}">Registrate</a></li>
+                @else
+                    <li><a class="nav-link" href="#" onclick=" document.getElementById('logout-form').submit();">Cerrar sesion</a></li>
+                @endguest
             </ul>
         </div>
     </div>
 </nav>
+
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    @csrf
+</form>

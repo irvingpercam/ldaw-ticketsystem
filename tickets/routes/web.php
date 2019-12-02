@@ -11,10 +11,8 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
+Auth::routes();
 Route::view('/', 'home')->name('home');
 
 Route::view('/quienes-somos', 'about')->name('about');
@@ -27,14 +25,13 @@ Route::view('/contacto', 'contact')->name('contact');
 
 Route::post('contact', 'MessageController@store')->name('messages.store');
 
-Route::get('/eventos/{event}/asistencia', 'EventoController@asistance')->name('events.asistance');
+Route::group(['middleware' => ['admin']], function () {
 
-Route::patch('/eventos/pass/{event}', 'EventoController@takeAsistance')->name('events.takeAsistance');
+    Route::get('/eventos/{event}/asistencia', 'EventoController@asistance')->name('events.asistance');
 
-Auth::routes();
+    Route::patch('/eventos/pass/{event}', 'EventoController@takeAsistance')->name('events.takeAsistance');
 
-// Route::get('/home', 'HomeController@index')->name('home');
-
-Route::resource('instituciones', 'InstitucionController')
-->names('institutions')
-->parameters(['instituciones' => 'institution']);
+    Route::resource('instituciones', 'InstitucionController')
+    ->names('institutions')
+    ->parameters(['instituciones' => 'institution']);
+});
