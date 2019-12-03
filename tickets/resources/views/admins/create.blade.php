@@ -6,7 +6,7 @@
         @include('partials.validation-errors')
         <form class="bg-white shadow rounded py-3 px-4" method="POST" action=" {{ route('admins.store') }} " >
             <h1 class="display-6">Registrar Administrador</h1>
-            @include('admins._form', ['btnText' => 'Guardar'])
+            @include('admins._formregister', ['btnText' => 'Guardar'])
         </form>
     </div>
 </div>
