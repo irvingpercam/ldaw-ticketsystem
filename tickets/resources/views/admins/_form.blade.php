@@ -2,7 +2,7 @@
 <hr>
     <div class="form-group">
         <label for="email">Email</label>
-            <input class="form-control bg-light shadow-sm @error('email') is-invalid @else border-0 @enderror" type="text" id="email" name="email" value="{{ old('email', $admin->email) }}">
+            <input class="form-control bg-light shadow-sm @error('email') is-invalid @else border-0 @enderror" type="email" id="email" name="email" value="{{ old('email', $admin['email'])}}">
             @error('email')
             <span class="invalid-feedback" role="alert">
                 <strong>{{$message}}</strong>

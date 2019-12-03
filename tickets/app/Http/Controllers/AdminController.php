@@ -22,7 +22,7 @@ class AdminController extends Controller
     }
     public function store(Request $request)
     {
-        if (!$request->email || !$request->password)
+        if (!$request->email)
         {
             return redirect()->route('admins.create')->with('status', '¡Favor de llenar todos los campos!');
         }

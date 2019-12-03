@@ -15,7 +15,7 @@
             @forelse ($admins as $adminsItem)
                 <li class="list-group-item border-0 mb-3 shadow-sm">
                     <a class="text-secondary d-flex justify-content-between"
-                    href="{{ route('admins.show', $adminsItem)}}">
+                    href="{{ route('admins.show', $adminsItem['id'])}}">
                     <span class="font-weight-bold">{{ $adminsItem['email'] }}</span>
                     </form>
                     </a>
